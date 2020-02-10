@@ -42,12 +42,9 @@ class Task(models.Model):
 
     def schedule(self):
         if self.scheduled > timezone.now():
-            try:
-                scheduler = BackgroundScheduler()
-                scheduler.add_job(run(self.id), 'date', run_date=self.scheduled)
-                scheduler.start()
-            except Exception as e:
-                print(str(e))
+            scheduler = BackgroundScheduler()
+            scheduler.add_job(run(self.id), 'date', run_date=self.scheduled)
+            scheduler.start()
         else:
             self.run()
 
