@@ -41,12 +41,13 @@ class Task(models.Model):
     callback = models.URLField()
 
     def schedule(self):
-        print('start of schedule')
         if self.scheduled > timezone.now():
-            print('inside if')
-            scheduler = BackgroundScheduler()
-            scheduler.add_job(run(self.id), 'date', run_date=self.scheduled)
-            scheduler.start()
+            try:
+                scheduler = BackgroundScheduler()
+                scheduler.add_job(run(self.id), 'date', run_date=self.scheduled)
+                scheduler.start()
+            except Exception as e:
+                print(str(e))
         else:
             self.run()
 

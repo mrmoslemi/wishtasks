@@ -18,8 +18,6 @@ class Schedule(APIView):
             serializer = TaskDetailsSerializer(task)
             return Response(status=status.HTTP_201_CREATED, data=serializer.data)
         else:
-            print('errrorrrrrrrrrrrr')
-            print(serializer.errors)
             return HttpResponseBadRequest()
 
 
