@@ -5,7 +5,7 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'http')
 SECURE_SSL_REDIRECT = False
 SESSION_COOKIE_SECURE = False
 CSRF_COOKIE_SECURE = False
-DEBUG = False
+DEBUG = True
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -32,13 +32,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'corsheaders',
+    'rest_framework',
+    'tasks',
 ]
 
 STATIC_URL = '/static-django/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
-
-MEDIA_URL = '/media-django/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
@@ -88,6 +87,18 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.AllowAny',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    ),
+
+}
 
 LANGUAGE_CODE = 'en-us'
 
