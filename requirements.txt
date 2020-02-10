@@ -1,0 +1,7 @@
+psycopg2==2.8.4
+Django==3.0.3
+django-cors-headers==3.2.1
+pytz==2019.3
+apscheduler==3.6.3
+requests==2.22.0
+django-crontab==0.7.1
