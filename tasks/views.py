@@ -43,5 +43,5 @@ class Reset(APIView):
     def get(self, request):
         missed_tasks = Task.objects.filter(scheduled__lt=timezone.now()).exclude(state=Task.EXECUTED)
         for missed_task in missed_tasks:
-            missed_task.run()
+            missed_task.force_run()
         return Response(status=status.HTTP_200_OK)

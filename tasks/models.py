@@ -57,6 +57,15 @@ class Task(models.Model):
             else:
                 self.missed()
 
+    def force_run(self):
+        if self.state != Task.EXECUTED:
+            data = {'code': self.code}
+            result = requests.post(url=self.callback, data=data)
+            if result.status_code == 200:
+                self.executed()
+            else:
+                self.missed()
+
     def executed(self):
         self.execution = timezone.now()
         self.state = Task.EXECUTED
